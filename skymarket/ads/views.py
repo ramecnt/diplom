@@ -51,6 +51,7 @@ class AdMeListAPIView(ListAPIView):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    pagination_class = AdPagination
 
     def perform_create(self, serializer):
         ad_id = self.kwargs['ad_pk']
