@@ -22,15 +22,15 @@ class AdSerializer(serializers.ModelSerializer):
 
 
 class AdDetailSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(allow_null=True, default=None)
-    title = serializers.CharField(max_length=250),
-    price = serializers.IntegerField(),
-    phone = serializers.CharField(source='author.phone'),
-    description = serializers.CharField(),
-    author_first_name = serializers.CharField(source='author.first_name')
-    author_last_name = serializers.CharField(source='author.last_name')
+    author = serializers.SerializerMethodField()
 
     class Meta:
         model = Ad
-        fields = '__all__'
+        fields = ['id', 'image', 'title', 'price', 'description', 'author']
 
+    def get_author(self, obj):
+        return {
+            'first_name': obj.author.first_name,
+            'last_name': obj.author.last_name,
+            'phone': obj.author.phone
+        }
