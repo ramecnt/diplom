@@ -23,6 +23,7 @@ class AdSerializer(serializers.ModelSerializer):
 
 class AdDetailSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField()
+    image = serializers.ImageField(allow_null=True, default=None)
 
     class Meta:
         model = Ad
